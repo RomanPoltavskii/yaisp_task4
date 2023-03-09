@@ -6,10 +6,13 @@ def text_from_file(path):
 
 
 def count_vowels_consonants(word):
-    vowels = set('аеёиоуэыюяАЕЁИОУЫЭЮЯ')
-    consonants = set('йцкнгшщзхъфвпрлджчсмтьбЙЦКНГШЩЗХЪФВПРЛДЖЧСМТЬБ')
+    vowels = 'аеёиоуэыюяАЕЁИОУЫЭЮЯ'
+    consonants = 'йцкнгшщзхъфвпрлджчсмтьбЙЦКНГШЩЗХЪФВПРЛДЖЧСМТЬБ'
+    digits = '0123456789'
+
     vowel_count = 0
     consonant_count = 0
+    digits_count = 0
 
     for letter in word:
         if letter in vowels:
@@ -19,16 +22,20 @@ def count_vowels_consonants(word):
         if letter in consonants:
             consonant_count += 1
 
+    for letter in word:
+        if letter in digits:
+            digits_count += 1
+
     #vowel_count = sum(1 for letter in word if letter in vowels)
     #consonant_count = sum(1 for letter in word if letter in consonants)
 
-    return vowel_count, consonant_count
+    return vowel_count, consonant_count, digits_count
 
 def find_words(text):
     words = set()
     for word in text.split():
-        vowel_count, consonant_count = count_vowels_consonants(word)
-        if vowel_count > consonant_count:
+        vowel_count, consonant_count, digits_count = count_vowels_consonants(word)
+        if vowel_count > consonant_count and digits_count == 0:
             words.add(word.lower())
     return list(words)
 
